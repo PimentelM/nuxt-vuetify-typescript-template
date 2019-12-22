@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import pt from 'vuetify/es5/locale/pt'
 
 export default {
   mode: 'spa',
@@ -6,8 +7,8 @@ export default {
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: 'Nuxt Vuetify',
+    title: process.env.npm_package_name || 'Nuxt Vuetify',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -25,6 +26,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '~static/fontawesome/css/all.min.css',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -60,19 +62,16 @@ export default {
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    icons: {
+      iconfont: 'fa'
+    },
+    // treeShake: true,
+    // lang: {
+    //   locales: {pt},
+    //   current: 'pt'
+    // },
     theme: {
-      dark: true,
-      themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
+
     }
   },
   /*
@@ -82,7 +81,10 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = 'eval-source-map'
+      }
     }
   }
 }
